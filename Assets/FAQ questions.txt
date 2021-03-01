@@ -1,0 +1,19 @@
+can i open an existing file from my device in the editor text field?
+How to save the file?
+You01:17
+1. No. At the moment, the editor is at a prototype stage. This feature will be enabled soon.
+You01:19
+2. On clicking save, an alert box will appear. Type the name of the file along with its extension. Our editor allows files to be save in .txt(default), .html , .java and .odt formats
+3. How can i find and replace?
+You01:21
+3. There is no dedicated feature for find and replace. You can use Ctrl + F to find the required word or character
+You01:23
+4. How to use the speech to text feature?
+You01:24
+4. Click on the speech to text button and start speaking once you see the recording symbol next to the title of the web page. Earphones recommended.
+5. Unable to use Admin feature?
+You01:26
+5. The Admin feature has been specifically designed and authorized by the creators for maintenance of the website and for keeping tabs on the database and hence can be accessed by them only.
+6. Can I edit an image in the canvas?
+You01:27
+6. Images can only be displayed on the canvas. The editing feature will be made available soon.
