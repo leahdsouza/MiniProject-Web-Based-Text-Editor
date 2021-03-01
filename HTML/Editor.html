@@ -1,0 +1,808 @@
+<!--Mini Project - Text Editor - CSLR-->
+
+<!--Editor page-->
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!--Title bar-->
+
+<!--Title of editor-->
+  <title>CSLR - Editor</title>
+
+<!--Favicon icon-->
+  <link rel="shortcut icon" href="android-chrome-512x512.png" />    
+    
+<!--CSS links-->
+  <link rel="stylesheet" href="style.css"> 
+  
+<!--For Icons-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<!--Special Functions-->
+  <link type="text/css" rel="stylesheet" href="custom-text-editor.css"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    
+<!--Javascript links-->
+
+<!--Jquery link-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> 
+  <script type="text/javascript" src="custom-text-editor.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/yourcode.js"></script>
+<!--Style section-->
+   
+<style>
+
+/*Body settings*/
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*End of body settings*/
+
+/*Background sizing*/
+body, html {
+        height: 100%;
+     }
+
+* {
+        box-sizing: border-box;
+     }
+     
+/*End of bg sizing*/
+
+/*Navbar settings*/
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  width: 99.70%;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+    
+/*End of navbar settings*/
+   
+/*Theme selection*/
+
+.mode { 
+   float:right; 
+} 
+
+.change { 
+   cursor: pointer; 
+   border: 1px solid #555; 
+   border-radius: 40%; 
+   width: 20px; 
+   text-align: center; 
+   padding: 5px; 
+   margin-left: 8px; 
+    } 
+    
+.dark{ 
+    background-color: #222; 
+    color: #e6e6e6; 
+     } 
+ 
+/*End of dark mode*/
+
+/*blue ombre bg*/
+
+.follow{
+   background: linear-gradient(to bottom, #3333CC 0%, #33CCFF 100% );
+   margin-top: 100px;
+  }
+  
+/*end of blue ombre bg*/
+
+/*Links*/  
+a:link {
+    text-decoration: none;
+    color: grey;
+}
+/*End of links*/
+
+/*Footer*/
+
+.footer{
+background-color:#003366;
+margin:0;
+padding:0;
+width:90vw;
+height:22.5vh;
+float:right;
+overflow:auto;
+display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  position: relative;
+}     
+
+/*End of footer*/
+    
+</style>
+        
+</head>
+  
+<body>  
+
+<!--Navigation bar-->
+  <div class="navbar">
+    
+    <div class="dropdown">
+    
+<!--File option-->
+      <button class="dropbtn">File<i class="fa fa-file"></i></button>
+    
+      <div class="dropdown-content">
+    
+        <ul><button onclick="newPage()" style="background-color:#ff6699">New</button></ul>
+        <ul><input type="button" style="background-color:#ff6699" id="dwn-btn" value="Save as"/></ul>
+        <ul><input type="file" id="fileToLoad" style="background-color:#ff6699"></ul>
+		<ul><button onclick="loadFileAsText()" style="background-color:#ff6699">Open</button></ul>
+        <p>  </p>
+        
+      </div>
+    
+    </div>
+    
+<!--End of file option-->
+    
+    <div class="dropdown">
+   
+<!--Edit option-->
+      <button class="dropbtn">Edit <i class="fa fa-edit"></i></button>
+    
+      <div class="dropdown-content">
+    
+      <ul><button onclick="cutContent()" style="background-color:#ffcc33">Cut</button>
+      <button id="copy-text" style="background-color:#ffcc33">Copy</button>
+      <button id="paste" style="background-color:#ffcc33">Paste</button></ul>
+      <ul><button class="fontStyle redo-apply" onclick="document.execCommand( 'redo',false,null);" style="background-color:#ffcc33"><redo>Redo <i class="fa fa-redo"></i></redo></button>
+      <button class="fontStyle undo-apply" onclick="document.execCommand( 'undo',false,null);" style="background-color:#ffcc33"><undo>Undo <i class="fa fa-undo"></i></undo></button></ul>
+      &nbsp;
+      <label for="termSearch"> Search</label>
+      <input type="text" id="termSearch" name="termSearch" value="test" />&nbsp;
+      <br/>
+      <ul><button style="background-color:#ffcc33" onclick="SAR.find(); return false;" id="find">FIND </button></ul>
+      &nbsp;
+      <label for="termReplace">Replace</label>
+      <input type="text" id="termReplace" name="termReplace" value="solution" />&nbsp;
+      <br/>
+      &nbsp;
+      <label for="caseSensitive">Case Sensitive</label>
+      <input type="checkbox" name="caseSensitive" id="caseSensitive" /><br/>
+      <ul><button style="background-color:#ffcc33" onclick="SAR.findAndReplace(); return false;" id="findAndReplace">FIND/REPLACE</button></ul>
+      <ul><button style="background-color:#ffcc33" onclick="SAR.replaceAll(); return false;" id="replaceAll">REPLACE ALL</button></ul>
+      </div>
+    
+    </div>
+    
+<!--End of edit option-->
+    
+    <div class="dropdown">
+        
+<!--Format option (open a collapsible menu bar-->
+      <button class="dropbtn">Format <i class="fa fa-pencil"></i></button>
+   
+      <div class="dropdown-content">
+      
+      <ul><button onclick="boldText()" style="background-color:#33cc33">B</button>
+      <button onclick="italicText()" style="background-color:#33cc33">I</button>
+      <button onclick="underlineText()" style="background-color:#33cc33">U</button></ul>
+      <ul><button id="alignc" style="background-color:#33cc33">Align-center</button></ul>
+      <ul><button id="alignl" style="background-color:#33cc33">Align-left</button></ul>
+      <ul><button id="alignr" style="background-color:#33cc33">Align-right</button></ul>
+      <ul><button id="alignj" style="background-color:#33cc33">Align-justify</button></ul>
+      
+<!--Font style starts-->
+      <select id="select_font" onchange="changeFont(this)">
+        <option value="Arial">Arial</option>
+        <option value="Calibri" selected>Calibri</option>
+        <option value="Sans Serif">Sans Serif</option>
+        <option value="Comic Sans MS">Comic Sans MS</option>
+        <option value="Times New Roman">Times New Roman</option>
+        <option value="Courier New">Courier New</option>
+        <option value="Verdana">Verdana</option>
+        <option value="Trebuchet MS">Trebuchet MS</option>
+        <option value="Arial Black">Arial Black</option>
+        <option value="Impact">Impact</option>
+        <option value="Bookman">Bookman</option>
+        <option value="Garamond">Garamond</option>
+        <option value="Palatino">Palatino</option>
+        <option value="Georgia">Georgia</option>
+      </select>
+<!--End of font style-->
+    
+<!-- font size start -->
+     <ul><select id="fontSizeDD">
+       <option value='8'>8</option>
+       <option value='9'>9</option>
+       <option value='10'>10</option>
+       <option value='11'>11</option>
+       <option value='12'>12</option>
+       <option value='13' selected>13</option>
+       <option value='14'>14</option>
+       <option value='16'>16</option>
+       <option value='18'>18</option>
+       <option value='20'>20</option>
+       <option value='22'>22</option>
+       <option value='24'>24</option>
+       <option value='26'>26</option>
+       <option value='28'>28</option>
+       <option value='36'>36</option>
+       <option value='48'>48</option>
+       <option value='72'>72</option>
+     </select>
+<!-- font size end -->
+  
+     </div>
+    </div>
+  
+<!--End of format-->
+
+    <div class="dropdown">
+  
+<!--Insert (open a canvas)-->
+    <button class="dropbtn"  onclick="location.href='canvas.html';">Insert <i class="fa fa-clipboard"></i></button></a>
+    
+    <div class="dropdown-content">
+      <ul><button onclick="location.href='canvas.html';" style="background-color:#66ccff">Image Canvas </button></ul>
+      <ul><button onclick="location.href='shapes.html';"style="background-color:#66ccff">Draw Canvas </button></ul>
+    </div>
+    
+    </div>
+    
+<!--End of insert-->
+
+    <div class="dropdown">
+
+    <!--voice speech to text and vice versa-->
+    <button class="dropbtn" onclick="runSpeechRecognition()">Speech to Text <i class="fa fa-microphone"></i></button>
+    
+    </div>
+    
+    <div class="dropdown">
+
+    <!--Syntax Highlighter-->
+    <button class="dropbtn" onclick="location.href='Syntax.html';">Syntax Highlighter <i class="fa fa-indent"></i></button>
+    
+    </div>
+    
+<!--End of speech to text feature-->
+    
+    <div class="dropdown">
+    
+<!--help-->
+    <button class="dropbtn" onclick="location.href='http://localhost/miniproject/test.html';">Help <i class="fa fa-wrench"></i></button>
+    
+    </div>
+    
+<!--End of help-->
+    
+    <div class="dropdown">
+    
+<!--Admin-->
+    <a href="http://localhost/miniproject/Admin.html" class="dropbtn">Admin  <i class="fa fa-lock"></i></a>
+  
+    </div>
+
+<!--End of admin-->
+  
+    <div class="dropdown">
+    
+<!--mode option-->
+    <div class="mode">
+    
+    <button class="dropbtn">Dark mode:<span class="change">OFF</span></button>
+    
+    </div> 
+
+    </div>
+
+<!--End of dark mode-->
+    
+    <div class="dropdown">
+    
+<!--Home-->
+    <a href="Index.html" class="dropbtn">Back  <i class="fa fa-home"></i></a>
+  
+    </div>
+  
+<!--End of home-->
+
+   </div>
+
+<!--End of navbar-->
+
+<!--Create a text window-->
+    <textarea id="text-val" rows="500" cols="166" name="selectedtext" style="background-color: #ccccff" contenteditable="true" spellcheck='true' ></textarea><br/>
+<!--End textarea-->
+    
+<!--Links and blue ombre-->
+<div class = "a">
+  <div class="follow">
+  <p>                                            <p><br>
+  <h1 style="text-align:center"><b>HAPPY CODING</b></h1>
+  <p>                                     
+                                  </p><br>
+</div>
+</div>
+<!--End of Links-->
+
+<hr>
+
+<!--Shortcut links-->
+<div>
+  <p>                                     
+                                  </p><br>
+  <p style ="text-align: center"><i class="fa fa-copyright"></i> 2020 Copyright: Text Editor</p>
+  <p style ="text-align: center">
+  <a class="active" href="Index.html">Home </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="feature.html">Features </i></a><br>
+  <a href="http://localhost/miniproject/Contact.html">Contact </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="about.html">About </a><br>
+  <a href="http://localhost/miniproject/test.html">Help  </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="http://localhost/miniproject/Admin.html">Admin  </a></p>
+</div>
+<!--End of Shortcut-->
+
+<!--Footer-->
+<footer>
+   <p> <img src = "android-chrome-512x512.png"  style="width:200px;height:100px;">
+</footer>
+<!--End of footer-->
+
+<!--JS code for New-->
+    <script>
+        function newPage() { 
+            var x = document.getElementById('text-val'); 
+            x.value = ""; 
+        } 
+    </script>
+
+<!--JS code for Save as-->
+    <script>
+        function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+        }
+
+
+    // Start file download.
+        document.getElementById("dwn-btn").addEventListener("click", function(){
+    
+    // Generate download of hello.txt file with some content
+        var person = prompt("Please enter the file extension", "hello.txt");
+
+        if (person == null || person == "") {
+        txt = "User cancelled the prompt.";
+        } else {
+        txt = person;
+        }
+        
+        var text = document.getElementById("text-val").value;
+        if(txt == ".odt"){
+        var filename = person;
+        }
+        else if(txt == ".html"){
+        var filename = person;
+        }
+        else if(txt == ".java"){
+        var filename = person;
+        }
+        else if(txt == ".c"){
+        var filename = person;
+        }
+        else if(txt == ".cpp"){
+        var filename = person;
+        }
+        else{
+        var filename = person;
+        }
+        download(filename, text);
+        }, false);
+    </script>
+ 
+ <script>
+ function loadFileAsText()
+{
+	var fileToLoad = document.getElementById("fileToLoad").files[0];
+
+	var fileReader = new FileReader();
+	fileReader.onload = function(fileLoadedEvent) 
+	{
+		var textFromFileLoaded = fileLoadedEvent.target.result;
+		document.getElementById("text-val").value = textFromFileLoaded;
+	};
+	fileReader.readAsText(fileToLoad, "UTF-8");
+}
+ </script>
+ 
+<!--JS code for copy--> 
+    <script>
+    document.getElementById('text-val').addEventListener('click', function(e){
+    // Click event
+});
+document.getElementById('text-val').select();
+copied = document.execCommand('copy');
+// Add click event
+document.getElementById('copy-text').addEventListener('click', function(e){
+  e.preventDefault();
+
+  // Select the text
+  document.getElementById('text-val').select();
+
+});
+    </script>
+   
+<!--JS code for cut-->
+   <script>
+   function cutContent() {
+   const ele = document.getElementById('text-val');
+    ele.select();
+    document.execCommand('cut'); 
+   ele.blur();
+ }
+ 
+// Assume id of button is cut and id of input element is input 
+document.querySelector("#cut").addEventListener("click", e => cutContent("input"))
+   </script>
+
+<!--JS code for paste-->
+<script>
+document.getElementById('paste').addEventListener('click', ()=>{
+    let pasteArea = document.getElementById('text-val');
+    pasteArea.value = '';
+ 
+    navigator.clipboard.readText()
+    .then((text)=>{
+        pasteArea.value = text;
+    });
+});
+</script>
+
+<!--JS code for Mode-->
+    <script> 
+        $( ".change" ).on("click", function() { 
+            if( $( "body" ).hasClass( "dark" )) { 
+                $( "body" ).removeClass( "dark" ); 
+                $( ".change" ).text( "OFF" ); 
+            } else { 
+                $( "body" ).addClass( "dark" ); 
+                $( ".change" ).text( "ON" ); 
+            } 
+        }); 
+    </script> 
+    
+<!--JS code for Bold, Italic & Underline-->
+    <script type="text/javascript">
+function boldText(){
+    var target = document.getElementById("text-val");
+    if( target.style.fontWeight == "bolder" ) {
+        target.style.fontWeight = "normal";
+    } else {
+        target.style.fontWeight = "bolder";
+    }
+}
+
+
+
+function italicText(){
+    var target = document.getElementById("text-val");
+    if( target.style.fontStyle == "italic" ) {
+        target.style.fontStyle = "normal";
+    } else {
+        target.style.fontStyle = "italic";
+    }
+}
+
+function underlineText(){
+    var target = document.getElementById("text-val");
+    if( target.style.textDecoration == "underline" ) {
+        target.style.textDecoration = "none";
+    } else {
+        target.style.textDecoration = "underline";
+    }
+}
+</script>
+
+<!--JS code for center align-->
+<script >
+      document.getElementById('alignc').addEventListener('click', function(e){
+    // Click event
+      document.getElementById("text-val").style.textAlign = "center";
+});
+    </script>
+    
+<!--JS code for left align-->
+    <script >
+      document.getElementById('alignl').addEventListener('click', function(e){
+    // Click event
+      document.getElementById("text-val").style.textAlign = "left";
+});
+    </script>
+    
+<!--JS code for right align-->
+    <script >
+      document.getElementById('alignr').addEventListener('click', function(e){
+    // Click event
+      document.getElementById("text-val").style.textAlign = "right";
+});
+    </script>
+    
+<!--JS code for justify align-->
+    <script >
+      document.getElementById('alignj').addEventListener('click', function(e){
+    // Click event
+      document.getElementById("text-val").style.textAlign = "justify";
+});
+    </script>
+    
+<!--JS code for font style-->
+<script>
+function changeFont(font) {
+  document.getElementById("text-val").style.fontFamily = font.value;
+} 
+</script>
+
+<!--JS code for font size-->
+<script>
+var fontSizeDD = document.getElementById('fontSizeDD');
+fontSizeDD.onchange = function () {
+    var txtBox = document.getElementById("text-val")
+    txtBox.style.fontSize = this.value +"px";
+};
+</script>
+
+<!--JS code for speech to text-->
+	<script>
+			/* JS comes here */
+		    function runSpeechRecognition() {
+		        // get output div reference
+		        var output = document.getElementById("text-val");
+		        // get action element reference
+		        var action = document.getElementById("action");
+                // new speech recognition object
+                var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+                var recognition = new SpeechRecognition();
+            
+                // This runs when the speech recognition service starts
+                recognition.onstart = function() {
+                    action.innerHTML = "<small>listening, please speak...</small>";
+                };
+                
+                recognition.onspeechend = function() {
+                    action.innerHTML = "<small>stopped listening, hope you are done...</small>";
+                    recognition.stop();
+                }
+              
+                // This runs when the speech recognition service returns result
+                recognition.onresult = function(event) {
+                    var transcript = event.results[0][0].transcript;
+                    var confidence = event.results[0][0].confidence;
+                    output.innerHTML = transcript;
+                    output.classList.remove("hide");
+                };
+              
+                 // start recognition
+                 recognition.start();
+	        }
+		</script>
+
+<!--JS code for Find, Replace and Replace all-->
+<script type="text/javascript">
+    var SAR = {};
+
+    SAR.find = function(){
+        // collect variables
+        var txt = $("#text-val").val();
+        var strSearchTerm = $("#termSearch").val();
+        var isCaseSensitive = ($("#caseSensitive").attr('checked') == 'checked') ? true : false;
+
+        // make text lowercase if search is supposed to be case insensitive
+        if(isCaseSensitive == false){
+            txt = txt.toLowerCase();
+            strSearchTerm = strSearchTerm.toLowerCase();
+        }
+
+        // find next index of searchterm, starting from current cursor position
+        var cursorPos = ($("#text-val").getCursorPosEnd());
+        var termPos = txt.indexOf(strSearchTerm, cursorPos);
+
+        // if found, select it
+        if(termPos != -1){
+            $("#text-val").selectRange(termPos, termPos+strSearchTerm.length);
+        }else{
+            // not found from cursor pos, so start from beginning
+            termPos = txt.indexOf(strSearchTerm);
+            if(termPos != -1){
+                $("#text-val").selectRange(termPos, termPos+strSearchTerm.length);
+            }else{
+                alert("not found");
+            }
+        }
+    };
+
+    SAR.findAndReplace = function(){
+        // collect variables
+        var origTxt = $("#text-val").val(); // needed for text replacement
+        var txt = $("#text-val").val(); // duplicate needed for case insensitive search
+        var strSearchTerm = $("#termSearch").val();
+        var strReplaceWith = $("#termReplace").val();
+        var isCaseSensitive = ($("#caseSensitive").attr('checked') == 'checked') ? true : false;
+        var termPos;
+
+        // make text lowercase if search is supposed to be case insensitive
+        if(isCaseSensitive == false){
+            txt = txt.toLowerCase();
+            strSearchTerm = strSearchTerm.toLowerCase();
+        }
+
+        // find next index of searchterm, starting from current cursor position
+        var cursorPos = ($("#text-val").getCursorPosEnd());
+        var termPos = txt.indexOf(strSearchTerm, cursorPos);
+        var newText = '';
+
+        // if found, replace it, then select it
+        if(termPos != -1){
+            newText = origTxt.substring(0, termPos) + strReplaceWith + origTxt.substring(termPos+strSearchTerm.length, origTxt.length)
+            $("#text-val").val(newText);
+            $("#text-val").selectRange(termPos, termPos+strReplaceWith.length);
+        }else{
+            // not found from cursor pos, so start from beginning
+            termPos = txt.indexOf(strSearchTerm);
+            if(termPos != -1){
+                newText = origTxt.substring(0, termPos) + strReplaceWith + origTxt.substring(termPos+strSearchTerm.length, origTxt.length)
+                $("#text-val").val(newText);
+                $("#text-val").selectRange(termPos, termPos+strReplaceWith.length);
+            }else{
+                alert("not found");
+            }
+        }
+    };
+
+    SAR.replaceAll = function(){
+        // collect variables
+        var origTxt = $("#text-val").val(); // needed for text replacement
+        var txt = $("#text-val").val(); // duplicate needed for case insensitive search
+        var strSearchTerm = $("#termSearch").val();
+        var strReplaceWith = $("#termReplace").val();
+        var isCaseSensitive = ($("#caseSensitive").attr('checked') == 'checked') ? true : false;
+
+        // make text lowercase if search is supposed to be case insensitive
+        if(isCaseSensitive == false){
+            txt = txt.toLowerCase();
+            strSearchTerm = strSearchTerm.toLowerCase();
+        }
+
+        // find all occurances of search string
+        var matches = [];
+        var pos = txt.indexOf(strSearchTerm);
+        while(pos > -1) {
+            matches.push(pos);
+            pos = txt.indexOf(strSearchTerm, pos+1);
+        }
+
+        for (var match in matches){
+            SAR.findAndReplace();
+        }
+    };
+
+
+    /* TWO UTILITY FUNCTIONS YOU WILL NEED */
+    $.fn.selectRange = function(start, end) {
+        return this.each(function() {
+            if(this.setSelectionRange) {
+                this.focus();
+                this.setSelectionRange(start, end);
+            } else if(this.createTextRange) {
+                var range = this.createTextRange();
+                range.collapse(true);
+                range.moveEnd('character', end);
+                range.moveStart('character', start);
+                range.select();
+            }
+        });
+    };
+
+    $.fn.getCursorPosEnd = function() {
+        var pos = 0;
+        var input = this.get(0);
+        // IE Support
+        if (document.selection) {
+            input.focus();
+            var sel = document.selection.createRange();
+            pos = sel.text.length;
+        }
+        // Firefox support
+        else if (input.selectionStart || input.selectionStart == '0')
+            pos = input.selectionEnd;
+        return pos;
+    };  
+</script>
+
+    </body>
+    
+</html>
+
+<!--End of editor page-->

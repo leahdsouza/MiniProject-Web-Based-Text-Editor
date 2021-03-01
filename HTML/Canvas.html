@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSLR - Canvas</title>
+    
+<!--Favicon icon-->
+  <link rel="shortcut icon" href="android-chrome-512x512.png" />
+  <style>
+        body{
+  text-align: center;
+  background-image: url("Candyy.png");
+}
+.clearcanvas {
+  float:right;
+  padding-right: 30%;
+}
+.Imageinput {
+  float:left;
+  padding-left: 30%;
+}
+h1 {
+  font-family: Helvetica;
+  color: #262626;
+}
+
+
+
+    </style>
+    
+</head>
+<body>
+    <h1>Canvas</h1>
+
+<div class="c1">
+<canvas id="myCanvas1" width="1000" height="500" style="border:1px solid"></canvas>
+</div>
+<div class="Imageinput">
+  
+  <input type="file" id="imageInput" accept="image/*">
+  </div>
+
+<div class="clearcanvas">
+    <input type="button" value="Press to clear canvas" onclick="clearCanvas()">
+</div>
+
+<!--Shortcut links-->
+<div>
+  <p>                                     
+                                  </p><br>
+  <p style ="text-align: center"><i class="fa fa-copyright"></i> 2020 Copyright: Text Editor</p>
+  <p style ="text-align: center">
+  <a class="active" href="Index.html">Home </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="feature.html">Features </i></a><br>
+  <a href="http://localhost/miniproject/Contact.html">Contact </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="about.html">About </a><br>
+  <a href="http://localhost/miniproject/test.html">Help  </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="http://localhost/miniproject/Admin.html">Admin  </a></p>
+</div>
+<!--End of Shortcut-->
+
+<!--Footer-->
+<footer>
+   <p> <img src = "android-chrome-512x512.png"  style="width:200px;height:100px;">
+</footer>
+<!--End of footer-->
+
+<script>
+  let imgInput = document.getElementById('imageInput');
+  imgInput.addEventListener('change', function(e) {
+    if(e.target.files) {
+      let imageFile = e.target.files[0]; //here we get the image file
+      var reader = new FileReader();
+      reader.readAsDataURL(imageFile);
+      reader.onloadend = function (e) {
+        var myImage = new Image(); // Creates image object
+        myImage.src = e.target.result; // Assigns converted image to image object
+        myImage.onload = function(ev) {
+          var myCanvas1 = document.getElementById("myCanvas1"); // Creates a canvas 
+          
+          var myContext1 = myCanvas1.getContext("2d"); // Creates a contect object
+          
+          myCanvas1.width = myImage.width; // Assigns image's width to canvas
+          myCanvas1.height = myImage.height; // Assigns image's height to canvas*/
+          myContext1.drawImage(myImage,0,0); // Draws the image on canvas
+        
+          let imgData = myCanvas1.toDataURL("image/jpeg",0.75); // Assigns image base64 string in jpeg format to a variable
+        }
+      }
+    }
+  });
+
+function clearCanvas() {
+  var canvas = document.getElementById('myCanvas1');
+  
+  var context = canvas.getContext("2d");
+  context.clearRect(0, 0, canvas.width, canvas.height);
+}
+</script>
+</body>
+</html>
+

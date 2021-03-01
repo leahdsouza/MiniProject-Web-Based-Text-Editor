@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!--Title bar-->
+
+<!--Title of editor-->
+  <title>CSLR - Editor</title>
+
+<!--Favicon icon-->
+  <link rel="shortcut icon" href="android-chrome-512x512.png" />   
+  
+<!--CSS links-->
+  <link rel="stylesheet" href="style.css"> 
+  
+<!--For Icons-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+<!--Special Functions-->
+  <link type="text/css" rel="stylesheet" href="custom-text-editor.css"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    
+<!--Javascript links-->
+
+<!--Jquery link-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> 
+  <script type="text/javascript" src="custom-text-editor.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/yourcode.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  
+<!--Style section-->
+  
+  <style>
+  body, html {
+  height: 60%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body{
+  /* The image used */
+
+background-image: url("candyy.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+} 
+  #editor {
+    width: 1250px;
+    height: 10000px;
+    padding: 10px;
+    background-color: #444;
+    color: white;
+    font-size: 14px;
+    font-family: monospace;
+    border-width:2px;
+border-style:solid;
+border-color:black;
+}
+.statement {
+    color: #ffff66;
+}
+</style>
+</head>
+<body>
+
+<div>
+  <p>                                            <p><br>
+  <h1 style="text-align:center"><b>SYNTAX HIGHLIGHTER</b></h1>
+  <p>                                     
+                                  </p><br>
+</div>
+
+<div id="editor" contenteditable="true"></div>
+
+<div>
+  <p>                                     
+                                  </p><br>
+  <p style ="text-align: center"><i class="fa fa-copyright"></i> 2020 Copyright: Text Editor</p>
+  <p style ="text-align: center">
+  <a href="Index.html">Home </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="feature.html">Features </i></a><br>
+  <a href="http://localhost/miniproject/Contact.html">Contact </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="about.html">About </a><br>
+  <a href="http://localhost/miniproject/test.html">Help  </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="http://localhost/miniproject/Admin.html">Admin  </a></p>
+</div>
+<!--End of Shortcut-->
+
+<!--Footer-->
+<footer>
+   <p> <img src = "android-chrome-512x512.png"  style="width:200px;height:100px;">
+</footer>
+<!--End of footer-->
+
+<script>
+// SQL keywords
+var keywords = ["SELECT","FROM","WHERE","LIKE","BETWEEN","NOT LIKE","FALSE","NULL","FROM","TRUE","NOT IN","ABSTRACT","ASSERT","BOOLEAN","BREAK","BYTE","CASE","CATCH","CHAR","CLASS","CONST","CONTINUE","DEFAULT","DO","DOUBLE","ELSE","ENUM","EXTENDS","FINAL","FINALLY","FLOAT","FOR","GOTO","IF","IMPLEMENTS","IMPORT","INSTANCEOF","INT","INTERFACE","LONG","NATIVE","NEW","PACKAGE","PRIVATE","PROTECTED","PUBLIC","RETURN","SHORT","STATIC","STRICTFP","SUPER","SWITCH","SYNCHRONIZED","THIS","THROW","THROWS","TRANSIENT","TRY","VOID","VOLATILE","WHILE","SYSTEM.OUT.PRINT","PRINTLN","SCANNER","NEXT()","NEXTINT()","NEXTDOUBLE()","VECTOR","NEXTFLOAT()","STRING"];
+// Keyup event
+$("#editor").on("keyup", function(e){
+  // Space key pressed
+  if (e.keyCode == 32){
+    var newHTML = "";
+    // Loop through words
+    $(this).text().replace(/[\s]+/g, " ").trim().split(" ").forEach(function(val){
+      // If word is statement
+      if (keywords.indexOf(val.trim().toUpperCase()) > -1)
+        newHTML += "<span class='statement'>" + val + "&nbsp;</span>";
+      else
+        newHTML += "<span class='other'>" + val + "&nbsp;</span>"; 
+    });
+    $(this).html(newHTML);
+
+    // Set cursor postion to end of text
+    var child = $(this).children();
+    var range = document.createRange();
+    var sel = window.getSelection();
+    range.setStart(child[child.length-1], 1);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    this.focus();
+  }
+});
+</script>
+
+</body>
+</html>

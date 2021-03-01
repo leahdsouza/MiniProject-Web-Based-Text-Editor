@@ -1,0 +1,705 @@
+<!--Mini Project - Text Editor - CSLR-->
+
+<!--Home page-->
+
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!--Title bar-->
+
+<!--Title of editor-->
+  <title>CSLR</title>
+
+<!--Favicon icon-->
+  <link rel="shortcut icon" href="android-chrome-512x512.png" />
+  
+<!--End of title portin-->
+
+<!--CSS Links-->
+  <link rel="stylesheet" href="style.css"> 
+
+<!--For icons-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!--Bootstrap link-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+<!--Live Text link-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,100,400" rel="stylesheet" type="text/css" />
+  
+<!--End of CSS links-->
+
+<!--Javascript links-->
+
+<!--Jquery link-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"> </script> 
+  
+<!--Jquery link for speech to text-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+<!--JS for Bootstrap-->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+<!--End of Js links-->
+  
+<style>
+
+/*Loading page*/
+
+#overlay{
+  position:fixed;
+  z-index:99999;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
+  background:rgba(0,0,0,0.9);
+  transition: 1s 0.4s;
+}
+
+#progress{
+  height:1px;
+  background:#fff;
+  position:absolute;
+  width:0;                /* will be increased by JS */
+  top:50%;
+}
+
+#progstat{
+  font-size:0.7em;
+  letter-spacing: 3px;
+  position:absolute;
+  top:50%;
+  margin-top:-40px;
+  width:100%;
+  text-align:center;
+  color:#fff;
+}
+
+.fade{
+   text-align: center;
+   margin: 100px;
+}
+
+/*End of Loading page*/
+
+/*Nav bar settings*/
+
+.topnav {
+  position: absolute;
+  color: white;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar {
+            background-color: grey;
+        }
+        
+/*End of nav bar settings*/
+
+/*Setting Background image*/
+ 
+body, html {
+  height: 90%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.bg-image {
+  /* The image used */
+
+background-image: url("candy.png");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+*{margin:0;}
+body{ font: 200 16px/1 sans-serif; }
+img{ width:32.2%; }
+
+/*End of Background setting*/
+
+/*Live Text*/
+
+.livet{
+font-family: 'Times New Roman';
+}
+
+.live{
+text-align: center;
+font-size: 1.4em;
+}
+
+.centered {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5em; 
+}
+
+/*End of live text*/
+
+/*hr tag*/
+
+hr { display: block; height: 1px;
+    border: 0; border-top: 1px solid #ccc;
+    margin: 1em 0; padding: 0; }
+
+/*End of hr tag*/
+
+/*Image alignment*/
+
+/*Row alignment*/
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/*End of row alignment*/
+
+/*3 image alignment*/
+
+/*images*/
+
+.column {
+  float: left;
+  width: 20%;
+  padding: 5px;
+  margin-top: 20px;
+
+  height:50%;
+  margin-left: 110px;
+  text-align: center;
+}
+
+/*end of images*/
+
+/*headers*/
+
+.column1 {
+  float: left;
+  width: 20%;
+  padding: 5px;
+  margin-top: 20px;
+  background-color: grey;
+  height:50%;
+  margin-left: 110px;
+  text-align: center;
+  color: white;
+  font-style: Calibri;
+}
+
+/*end of headers*/
+
+/*info*/
+
+.column2 {
+  float: left;
+  width: 20%;
+  padding: 5px;
+  margin-top: 20px;
+  background-color: black;
+  height:50%;
+  margin-left: 110px;
+  text-align: center;
+  color: white;
+  font-style: Calibri;
+}
+
+/*end of info*/
+
+/*end of 3 image alignment*/
+
+/*2 image alignment*/
+
+/*images*/
+
+.column3 {
+  float: left;
+  width: 20%;
+  padding: 5px;
+  margin-top: 20px;
+
+  height:50%;
+  margin-left: 260px;
+  text-align: center;
+}
+
+/*end of images*/
+
+/*headers*/
+
+.column4 {
+  float: left;
+  width: 20%;
+  padding: 5px;
+  margin-top: 20px;
+  background-color: grey;
+  height:50%;
+  margin-left: 260px;
+  text-align: center;
+  color: white;
+  font-style: Calibri;
+}
+
+/*end of headers*/
+
+/*info*/
+
+.column5 {
+  float: left;
+  width: 20%;
+  padding: 5px;
+  margin-top: 20px;
+  background-color: black;
+  height:50%;
+  margin-left: 260px;
+  text-align: center;
+  color: white;
+  font-style: Calibri;
+}
+
+/*end of info*/
+
+/*end of 2 image alignment*/
+
+/*End of image alignment*/
+
+/*cyan ombre bg*/
+
+.helping{
+   background: linear-gradient(to bottom, #00ffee 0%, #00ffcc 100% );  
+   margin-top: 100px;
+   }
+
+/*end of cyan ombre bg*/
+
+/*purple ombre bg*/
+
+.follow{
+   background: linear-gradient(to bottom, purple 0%, #ff99cc 100% );
+   margin-top: 100px;
+  }
+
+
+/*end of purple ombre bg*/
+
+/*Links*/
+
+a:link {
+    text-decoration: none;
+    color: black;
+}
+
+/*end of links*/
+
+/*Dark mode*/
+
+.mode { 
+            float:right; 
+        } 
+        .change { 
+            cursor: pointer; 
+            border: 1px solid #555; 
+            border-radius: 40%; 
+            width: 20px; 
+            text-align: center; 
+            padding: 5px; 
+            margin-left: 8px; 
+        } 
+        .dark{ 
+            background-color: #222; 
+            color: #e6e6e6; 
+        } 
+
+/*End of Dark mode*/
+
+/*Footer logo*/
+
+.footer{
+background-color:#003366;
+margin:0;
+padding:0;
+width:90vw;
+height:22.5vh;
+float:right;
+overflow:auto;
+display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  position: relative;
+}
+
+/*End of footer*/
+
+</style> 
+</head>
+
+<body>
+
+<!--Loading page-->
+<div id="overlay">
+  <div id="progstat"></div>
+    <div id="progress"></div>
+      <div class="fade">
+        <img src="loading.png">
+      </div>
+    </div>
+  </div>
+</div>
+<!--End of Loading Page-->
+
+<!--Creation of navbar-->
+<div class="topnav">
+  <a href="#home">Home <i class="fa fa-home"></i></a>
+  <a href="#editor">Editor <i class="fa fa-edit"></i></a>
+  <a href="#feature">Features <i class="fa fa-globe"></i></a>
+  <a href="#contact">Contact <i class="fa fa-phone"></i></a>
+  <a href="#about">About <i class="fa fa-male"></i></a>
+  <a href="#help">Help  <i class="fa fa-wrench"></i></a>
+  <a href="http://localhost/miniproject/Admin.html">Admin  <i class="fa fa-lock"></i></a>
+  <a> </a>
+  <a> </a>
+  <a> </a>
+  <a> </a>
+  <a> </a>
+  <a> </a>
+  <a> </a>
+  <a> </a>
+  <a> </a>
+  <a> </a>
+  <a>  </a>
+  <a href="#facebook"><i class="fa fa-facebook"></i></a>
+  <a href="#instagram"><i class="fa fa-instagram"></i></a>
+  <a href="#linkedin"><i class="fa fa-linkedin"></i></a>
+  <a href="#twitter"><i class="fa fa-twitter"></i></a><br> 
+</div>
+<!--End of navbar-->
+
+
+<!--Background image-->
+<div class="bg-image">
+</div>
+<!--End of Background image-->
+
+<!--Live Text-->
+<div class="centered">
+  <div class="live">
+  <div>
+    <p class="livet">
+    <span 
+      class="txt-rotate"
+      data-period="2000"
+      data-rotate='[ "Happy Coding!","Always there to solve your queries! ","There to help with updates and new features!","Let us build a coding community!" ]'>
+    </span>
+    </p>
+  </div>
+  </div>
+</div>
+<!--End of Live Text-->
+
+<hr>
+
+<!--3 image alignment-->
+<div class="row">
+  <div class="column" id="about">
+    <p id="about"> </p><br>
+    <img src="about.jpg" style="width:100% height:50%">
+  </div>
+  <div class="column">
+    <p id="editor"> </p><br>
+    <img src="editor.jpg" style="width:100% height:50%">
+  </div>
+  <div class="column">
+    <p id="feature"> </p><br>
+    <img src="features.jpg" style="width:100% height:50%">
+  </div>
+</div>
+
+<div class="row">
+  <div class="column1">
+    <p>ABOUT US</p>
+  </div>
+  <div class="column1">
+    <p>EDITOR</p>
+  </div>
+  <div class="column1">
+    <p>FEATURES</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="column2">
+    <p>Our aim is to make a text editor available to all! As the concept of digital learning and online education grows at a tremendous rate with each passing day, we wanted to create a multitasking text editor.</p>
+  </div>
+  <div class="column2">
+    <p>This Editor has multiple features that come in handy while coding. It is simple and unimaginably easy to use especially for novices.</p>
+  </div>
+  <div class="column2">
+    <p>A number of useful features have been incorporated in this editor. The availability of canvas, speech to text feature can help the entire dynamics of online learning.</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="column">
+    <button type="button" class="btn btn-success" onclick="location.href='about-us.html';">Read more</button>
+  </div>
+  <div class="column">
+     <button type="button" class="btn btn-warning" onclick="location.href='Editor.html';">Editor</button>
+  </div>
+  <div class="column">
+    <button type="button" class="btn btn-danger" onclick="location.href='feature.html';">Explore features</button>
+  </div>
+</div>
+<!--End of 3 image alignment-->
+
+<hr>
+
+<!--2 image alignment and cyan ombre-->
+<div class="helping">
+  <p>                                            <p><br>
+  <h1 style="text-align: center"> HELP SECTION </h1>
+  <div class="row">
+    <div class="column3">
+      <p id="contact"> </p><br>
+      <img src="contact.jpg" style="width:100% height:50%">
+    </div>
+    <div class="column3">
+      <p id="help"> </p><br>
+      <img src="help.jpg" style="width:100% height:50%">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="column4">
+      <p>CONTACT US</p>
+    </div>
+    <div class="column4">
+      <p>HELP</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="column5">
+      <p>Answering queries always!</p>
+      <button type="button" class="btn btn-info" onclick="location.href='http://localhost/miniproject/Contact.html';">Contact us</button>
+    </div>
+    <div class="column5">
+      <p>FAQs regarding the editor</p>
+      <button type="button" class="btn btn-primary" onclick="location.href='http://localhost/miniproject/test.html';">Help</button>
+    </div>
+  </div>
+  <p>                                     
+                                  </p><br>
+</div>
+<!--End of 2 image alignment-->
+
+<hr>
+
+
+<!--Links and purple ombre-->
+<div class = "a">
+  <div class="follow">
+  <p>                                            <p><br>
+  <h3 style="text-align:center"> FOLLOW US ON <h3><br>
+  <p style="text-align:center">
+  <a href="#facebook"><i class="fa fa-facebook"></i></a>
+  <a href="#instagram"><i class="fa fa-instagram"></i></a>
+  <a href="#linkedin"><i class="fa fa-linkedin"></i></a>
+  <a href="#twitter"><i class="fa fa-twitter"></i></a><br>
+  <h1 style="text-align:center"><b>HAPPY CODING</b></h1>
+  <p>                                     
+                                  </p><br>
+</div>
+<!--End of Links-->
+
+<hr>
+
+<!--Shortcut links-->
+<div>
+  <p>                                     
+                                  </p><br>
+  <p style ="text-align: center"><i class="fa fa-copyright"></i> 2020 Copyright: Text Editor</p>
+  <p style ="text-align: center">
+  <a class="active" href="Editor.html">Editor </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="feature.html">Features </i></a><br>
+  <a href="http://localhost/miniproject/Contact.html">Contact </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="about.html">About </a><br>
+  <a href="http://localhost/miniproject/test.html">Help  </a>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <a href="http://localhost/miniproject/Admin.html">Admin  </a></p>
+</div>
+<!--End of Shortcut-->
+
+<!--Dark mode-->
+<div class="mode"> 
+  Dark mode:              
+  <span class="change">OFF</span> 
+</div> 
+<!--End of Dark mode-->
+
+<!--Footer logo-->
+<footer>
+  <p> <img src = "android-chrome-512x512.png"  style="width:200px;height:100px;">
+</footer>
+<!--End of footer-->
+
+<!--JS code for Loading page-->
+<script>
+    ;(function(){
+  function id(v){ return document.getElementById(v); }
+  function loadbar() {
+    var ovrl = id("overlay"),
+        prog = id("progress"),
+        stat = id("progstat"),
+        img = document.images,
+        c = 0,
+        tot = img.length;
+    if(tot == 0) return doneLoading();
+
+    function imgLoaded(){
+      c += 1;
+      var perc = ((100/tot*c) << 0) +"%";
+      prog.style.width = perc;
+      stat.innerHTML = "Loading "+ perc;
+      if(c===tot) return doneLoading();
+    }
+    function doneLoading(){
+      ovrl.style.opacity = 0;
+      setTimeout(function(){ 
+        ovrl.style.display = "none";
+      }, 3000);
+    }
+    for(var i=0; i<tot; i++) {
+      var tImg     = new Image();
+      tImg.onload  = imgLoaded;
+      tImg.onerror = imgLoaded;
+      tImg.src     = img[i].src;
+    }    
+  }
+  document.addEventListener('DOMContentLoaded', loadbar, false);
+}());
+</script>
+
+<!--JS code for Live Text-->    
+<script>	
+	var TxtRotate = function(el, toRotate, period) {
+  this.toRotate = toRotate;
+  this.el = el;
+  this.loopNum = 0;
+  this.period = parseInt(period, 10) || 2000;
+  this.txt = '';
+  this.tick();
+  this.isDeleting = false;
+};
+
+TxtRotate.prototype.tick = function() {
+  var i = this.loopNum % this.toRotate.length;
+  var fullTxt = this.toRotate[i];
+
+  if (this.isDeleting) {
+    this.txt = fullTxt.substring(0, this.txt.length - 1);
+  } else {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
+  }
+
+  this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+  var that = this;
+  var delta = 300 - Math.random() * 100;
+
+  if (this.isDeleting) { delta /= 2; }
+
+  if (!this.isDeleting && this.txt === fullTxt) {
+    delta = this.period;
+    this.isDeleting = true;
+  } else if (this.isDeleting && this.txt === '') {
+    this.isDeleting = false;
+    this.loopNum++;
+    delta = 500;
+  }
+
+  setTimeout(function() {
+    that.tick();
+  }, delta);
+};
+
+window.onload = function() {
+  var elements = document.getElementsByClassName('txt-rotate');
+  for (var i=0; i<elements.length; i++) {
+    var toRotate = elements[i].getAttribute('data-rotate');
+    var period = elements[i].getAttribute('data-period');
+    if (toRotate) {
+      new TxtRotate(elements[i], JSON.parse(toRotate), period);
+    }
+  }
+  // INJECT CSS
+  var css = document.createElement("style");
+  css.type = "text/css";
+  css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+  document.body.appendChild(css);
+};
+	
+</script>	
+
+<!--JS code for Dark mode-->
+<script> 
+
+        $( ".change" ).on("click", function() { 
+            if( $( "body" ).hasClass( "dark" )) { 
+                $( "body" ).removeClass( "dark" ); 
+                $( ".change" ).text( "OFF" ); 
+            } else { 
+                $( "body" ).addClass( "dark" ); 
+                $( ".change" ).text( "ON" ); 
+            } 
+        }); 
+</script>    
+   
+</body>
+</html>
+
+<!--End of homepage-->
